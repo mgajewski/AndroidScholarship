@@ -1,8 +1,12 @@
 package com.myaps.popularmovies.services;
 
+import com.myaps.popularmovies.data.FavMovieTransportClass;
+import com.myaps.popularmovies.utils.FavouritesHelper;
 import com.myaps.popularmovies.utils.IDataProvider;
 import com.myaps.popularmovies.utils.NetworkUtils;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +20,7 @@ import java.util.List;
  * Created by mgajewski on 2017-01-26.
  */
 
+@EBean(scope = EBean.Scope.Singleton)
 public class MoviesService {
 
     private static final String PAGE_QUERY_PARAM = "page";
@@ -27,16 +32,18 @@ public class MoviesService {
 
     private static ArrayList<JSONObject> topRatedData = new ArrayList<>();
     private static ArrayList<JSONObject> mostPopularData = new ArrayList<>();
+    private static ArrayList<JSONObject> favouritesData = new ArrayList<>();
 
-    public static final MoviesService instance = new MoviesService();
+    //public static final MoviesService instance = new MoviesService();
 
-    private MoviesService() {
+    MoviesService() {
         queryMap.put(PAGE_QUERY_PARAM, "1");
     }
 
     public enum SortType {
         TOP_RATED("movie/top_rated", topRatedData),
-        MOST_POPULAR("movie/popular", mostPopularData);
+        MOST_POPULAR("movie/popular", mostPopularData),
+        FAVOURITES(null, favouritesData);
 
         SortType(String endpoint, List<JSONObject> dataContainer) {
             this.endpoint = endpoint;
@@ -50,7 +57,7 @@ public class MoviesService {
         void onLoadingProgress(float progress);
     }
 
-    private IDataProvider topRatedProvider = new IDataProvider() {
+    private IDataProvider<JSONObject> topRatedProvider = new IDataProvider<JSONObject>() {
         @Override
         public int getCount() {
             return topRatedData.size();
@@ -65,7 +72,7 @@ public class MoviesService {
         }
     };
 
-    private IDataProvider mostPopularProvider = new IDataProvider() {
+    private IDataProvider<JSONObject> mostPopularProvider = new IDataProvider<JSONObject>() {
         @Override
         public int getCount() {
             return mostPopularData.size();
@@ -80,13 +87,33 @@ public class MoviesService {
         }
     };
 
+    private IDataProvider<JSONObject> favouritesProvider = new IDataProvider<JSONObject>() {
+        @Override
+        public int getCount() {
+            return favouritesData.size();
+        }
+
+        @Override
+        public JSONObject getItem(int position) {
+            if (position < favouritesData.size()) {
+                return favouritesData.get(position);
+            }
+            return null;
+        }
+    };
+
+    @Bean
+    FavouritesHelper favHelepr;
+
     LoadingProgressListener loadingProgressListener;
 
-    public IDataProvider getDataProvider(SortType sortType) {
+    public IDataProvider<JSONObject> getDataProvider(SortType sortType) {
         if (sortType == SortType.MOST_POPULAR) {
             return mostPopularProvider;
         } else if (sortType == SortType.TOP_RATED) {
             return topRatedProvider;
+        } else if (sortType == SortType.FAVOURITES) {
+            return favouritesProvider;
         }
         return null;
     }
@@ -125,11 +152,29 @@ public class MoviesService {
         return mostPopularProvider.getCount() > 0;
     }
 
+    public boolean reloadFavouritesMovies() {
+        favouritesData.clear();
+
+        if (loadingProgressListener != null) {
+            loadingProgressListener.onLoadingProgress(0);
+        }
+
+        List<JSONObject> favMovies = favHelepr.getFavouritesMovies();
+        SortType.FAVOURITES.dataContainer.addAll(favMovies);
+
+        if (loadingProgressListener != null) {
+            loadingProgressListener.onLoadingProgress(1);
+        }
+        return favouritesProvider.getCount() > 0;
+    }
+
     public boolean reloadMovies(SortType sortType) {
         if (sortType == SortType.MOST_POPULAR) {
             return reloadMostPopularMovies();
         } else if (sortType == SortType.TOP_RATED) {
             return reloadTopRatedMovies();
+        } else if (sortType == SortType.FAVOURITES) {
+            return reloadFavouritesMovies();
         }
         return false;
     }

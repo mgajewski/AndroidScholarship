@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_review_title"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textColor="#000000"
+        android:background="#C5CAE9"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"/>
+
+    <com.myaps.popularmovies.views.ExpandableTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_review_content"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:textColor="#000000"/>
+    <View style="@style/Divider"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>

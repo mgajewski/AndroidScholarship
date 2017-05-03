@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">PopularMovies</string>
+    <string name="app_name_offline">PopularMovies(offline)</string>
     <string name="error_message">Could not download movies data. Check your connection and try refresh</string>
+    <string name="no_favourites">No favourites movies</string>
     <string name="action_share">Share</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Settings</string>
@@ -8,4 +10,9 @@
     <string name="action_top_rated">Top Rated</string>
     <string name="poster">Movie Poster</string>
     <string name="no_internet">No Internet connection. Switch on WiFi or mobile data and refresh</string>
+    <string name="trailers_header">Trailers:</string>
+    <string name="reviews_header">Reviews:</string>
+    <string name="review_title">Review by:</string>
+    <string name="action_favourites">Favourites</string>
+    <string name="fav_label">Favourite</string>
 </resources>

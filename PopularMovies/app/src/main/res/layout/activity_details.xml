@@ -77,6 +77,24 @@
                     android:id="@+id/tv_rating"
                     android:textSize="16sp"
                     android:textColor="#000000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fav_label"
+                        android:textSize="16sp"
+                        android:textColor="#000000"/>
+                    <CheckBox
+                        android:button="@android:drawable/btn_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cb_favourite"
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="8dp"/>
+                </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.GridLayout>
         <TextView
@@ -85,6 +103,36 @@
             android:id="@+id/tv_overview"
             android:textSize="16sp"
             android:textColor="#000000"/>
+        <View style="@style/Divider"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/trailers_header"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text="@string/trailers_header"/>
+        <com.myaps.popularmovies.views.StackPanelView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/sp_trailers"
+            android:layout_marginTop="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviews_header"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text="@string/reviews_header"
+            android:layout_marginTop="8dp"/>
+
+        <com.myaps.popularmovies.views.StackPanelView
+            android:id="@+id/sp_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="4dp" />
 
     </LinearLayout>
 

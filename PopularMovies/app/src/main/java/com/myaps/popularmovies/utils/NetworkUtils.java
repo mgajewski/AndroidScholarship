@@ -4,9 +4,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -14,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by mgajewski on 2017-01-26.
@@ -22,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class NetworkUtils {
 
-    private static final String API_KEY = "YOUR_API_KEY_HERE";
+    private static final String API_KEY = "YOUR_API_KEY";
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
     private static final String BASE_URL = "https://api.themoviedb.org/3";

@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class JsonUtils {
     private static final String IMAGE_URL_NAME = "poster_path";
+    private static final String MOVIE_ID = "id";
 
     public static String getImageUrl(JSONObject item) {
         try {
@@ -18,6 +19,15 @@ public class JsonUtils {
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static int getMovieId(JSONObject item) {
+        try {
+            return item.getInt(MOVIE_ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return -1;
         }
     }
 
